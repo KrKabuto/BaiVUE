@@ -91,9 +91,8 @@
                     >Giao hàng nhanh và tiết kiệm</v-toolbar-title
                   >
 
-                  <v-spacer></v-spacer>
-
-                  <v-btn color="white" class="btn"> Xem ưu đãi </v-btn>
+                  <v-spacer></v-spacer>                  
+                    <v-btn color="white" class="btn" @click="goToVocherPage"> Xem ưu đãi </v-btn>
                 </v-toolbar>
               </v-col>
               <v-col cols="12" sm="12">
@@ -313,8 +312,11 @@
 <script setup>
 import SideBare from "@/components/SideBare.vue";
 import Footer from "@/components/Footer.vue";
+import { useRouter } from 'vue-router';
+
 </script>
 <script>
+
 export default {
   data: () => ({
     panel: [0],
@@ -406,7 +408,13 @@ export default {
       { image: "44.png", name: "Chanh tuyết", money: "23.000đ" },
     ],
   }),
+  methods:{
+    goToVocherPage() {
+      this.$router.push('/vocher');
+    },
+  }
 };
+
 </script>
 <style scoped>
 .co {

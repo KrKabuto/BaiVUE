@@ -62,15 +62,39 @@
         </template>
       </v-btn>
     </div>
-    <v-divider vertical inset class="mr-6"></v-divider>
-    <v-icon class="mr-10">mdi mdi-shopping-outline</v-icon>
+      <v-divider vertical inset class="mr-6"></v-divider>
+      <v-icon class="mr-10">mdi mdi-shopping-outline</v-icon>
   </v-app-bar>
   <v-app-bar height="50" flat color="#191919">
-    <v-btn variant="text" color="orange" :to="{ name : 'Home' }"> Trang chủ </v-btn>
-    <v-btn variant="text" class="account" @click="goToCoffeePage"> Coffee </v-btn>
-    <v-btn variant="text" class="account" @click="goToIcreamPage"> Kem tươi </v-btn>
-    <v-btn variant="text" class="account" @click="goToJuicePage"> Nước ép </v-btn>
-    <v-btn variant="text" class="account" @click="goToMilkPage"> Trà sữa </v-btn>
+    <v-btn 
+      variant="text" 
+      :color="activeButton === 'home' ? 'orange' : ''" 
+      @click="goToHomePage"
+    > Trang chủ </v-btn>
+    <v-btn 
+      variant="text" 
+      :color="activeButton === 'coffee' ? 'orange' : ''" 
+      class="account" 
+      @click="goToCoffeePage"
+    > Coffee </v-btn>
+    <v-btn 
+      variant="text" 
+      :color="activeButton === 'icream' ? 'orange' : ''" 
+      class="account" 
+      @click="goToIcreamPage"
+    > Kem tươi </v-btn>
+    <v-btn 
+      variant="text" 
+      :color="activeButton === 'juice' ? 'orange' : ''" 
+      class="account" 
+      @click="goToJuicePage"
+    > Nước ép </v-btn>
+    <v-btn 
+      variant="text" 
+      :color="activeButton === 'milk' ? 'orange' : ''" 
+      class="account" 
+      @click="goToMilkPage"
+    > Trà sữa </v-btn>
 
     <v-spacer></v-spacer>
     <v-btn
@@ -86,22 +110,36 @@
 </template>
 
 <script>
-import { RouterLink } from 'vue-router';
-
 export default {
+  data() {
+    return {
+      activeButton: null
+    };
+  },
   methods: {
+    goToHomePage() {
+      this.activeButton = 'home';
+      this.$router.push({ name: 'Home' });
+    },
     goToCoffeePage() {
+      this.activeButton = 'coffee';
       this.$router.push('/coffee');
     },
     goToIcreamPage() {
+      this.activeButton = 'icream';
       this.$router.push('/icream');
     },
-    goToJuicePage(){
+    goToJuicePage() {
+      this.activeButton = 'juice';
       this.$router.push('/juice');
     },
-    goToMilkPage(){
+    goToMilkPage() {
+      this.activeButton = 'milk';
       this.$router.push('/milk');
     }
+  },
+  mounted() {
+    this.goToHomePage();
   }
 };
 </script>
