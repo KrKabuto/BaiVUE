@@ -1,12 +1,18 @@
-const sql = require('mssql');
+const sql = require("mssql");
 
 const config = {
-    user: 'sa',
-    password: '1730310522',
-    server: 'your_server',
-    database: 'your_database',
+    user: 'admin',
+    password: 'admin',
+    server: 'localhost',
+    port: 1433,
+    database: 'store',
+    option: {
+        encrypt: true,
+        trustServerCertificate: true
+    
+    }
 };
-async function connectDatabase() {
+export async function connectDatabase() {
     try {
         await sql.connect(config);
         console.log('Connected to SQL Server');
