@@ -1,6 +1,7 @@
 // Composables
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import PaymentComponent from '@/views/Payment.vue'
 
 const routes = [
   {
@@ -37,6 +38,26 @@ const routes = [
         name: 'Vocher',
         component: () => import('@/views/Vocher.vue'),
       },
+      {
+        path: 'lovelist',
+        name: 'Lovelist',
+        component: () => import('@/views/Lovelist.vue'),
+      },
+      {
+        path: 'basket',
+        name: 'Basket',
+        component: () => import('@/views/Basket.vue'),
+      },
+      {
+        path: 'login',
+        name: 'Login',
+        component: () => import('@/views/login/login.vue'),
+      },
+      {
+        path: '/payment',
+        name: 'payment',
+        component: PaymentComponent
+      }
     ],
   },
 ]

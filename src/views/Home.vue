@@ -1,12 +1,12 @@
 <template>
-  <v-app :style="{ background: $vuetify.theme.themes.light.colors.primary }">
+  <v-app :style="{ background: '#B7AC9A' }">
     <v-main>
       <!-- <SideBare /> -->
       <v-container fluid>
         <v-row>
           <v-col cols="12" sm="2">
             <v-row>
-              <v-col cols="12" sm="12">
+              <!-- <v-col cols="12" sm="12">
                 <v-expansion-panels v-model="panel">
                   <v-expansion-panel class="co">
                     <v-expansion-panel-title class="text-white bg-orange"
@@ -32,12 +32,13 @@
                     </v-expansion-panel-text>
                   </v-expansion-panel>
                 </v-expansion-panels>
-              </v-col>
+              </v-col> -->
               <v-col cols="12" sm="12">
                 <v-card class="co">
                   <v-list lines="two" class="cat pro">
-                    <v-list-subheader inset class="ml-n10 text-white"
-                      >Bán chạy nhất</v-list-subheader
+                    <!-- phổ biến 1 -->
+                    <v-list-subheader inset class="ml-n10 text-black" style="font-weight: bold; "
+                      >Phổ biến</v-list-subheader
                     >
 
                     <v-list-item
@@ -48,11 +49,11 @@
                     >
                       <v-list-item-subtitle
                         v-text="product.subtitle"
-                        class="text-caption text-orange"
+                        class="text-caption text-red"
                       ></v-list-item-subtitle>
                       <template v-slot:prepend>
-                        <v-avatar variant="outlined" rounded="0" color="grey">
-                          <v-img color="white" :src="product.image"></v-img>
+                        <v-avatar variant="outlined" rounded="0" color="#FFA07A">
+                          <v-img color="black" :src="product.image"></v-img>
                         </v-avatar>
                       </template>
                     </v-list-item>
@@ -61,20 +62,20 @@
               </v-col>
               <v-col cols="12" sm="12">
                 <v-card class="co pa-2">
-                  <h5 class="ml-4 text-white">Phổ biến</h5>
-                  <v-chip class="ma-2 tag" label color="white">
-                    Tráng miệng
-                  </v-chip>
-                  <v-chip class="ma-2" label color="white"> Nước ép </v-chip>
-                  <v-chip class="ma-2" label color="white"> Kem tươi </v-chip>
-                  <v-chip class="ma-2" label color="white"> cà phê </v-chip>
-                  <v-chip class="ma-2" label color="white"> Trà sữa </v-chip>
+                  <!-- phổ biến 2 -->
+                  <h5 class="ml-4 text-black" >Phổ biến</h5> 
+                  <!-- <v-chip class="ma-2 tag" label color="white"> Tráng miệng </v-chip> -->
+                  <v-chip class="ma-2" label color="black"> Nước ép </v-chip>
+                  <v-chip class="ma-2" label color="black"> Kem tươi </v-chip>
+                  <v-chip class="ma-2" label color="black"> Cà phê </v-chip>
+                  <v-chip class="ma-2" label color="black"> Trà sữa </v-chip>
                 </v-card>
               </v-col>
             </v-row>
           </v-col>
           <v-col cols="12" sm="8">
             <v-row>
+              <!-- show slide -->
               <v-col cols="12" sm="12">
                 <v-carousel :show-arrows="false">
                   <v-carousel-item
@@ -86,21 +87,17 @@
                 </v-carousel>
               </v-col>
               <v-col cols="12" sm="12">
-                <v-toolbar color="#1F1F1F">
-                  <v-toolbar-title
-                    >Giao hàng nhanh và tiết kiệm</v-toolbar-title
-                  >
-
+                <!-- kho voucher -->
+                <v-toolbar color="#F7F2E5">
+                  <v-toolbar-title style="font-weight: bold;">Kho voucher</v-toolbar-title>
                   <v-spacer></v-spacer>                  
-                    <v-btn color="white" class="btn" @click="goToVocherPage"> Xem ưu đãi </v-btn>
+                    <v-btn color="black" class="btn" @click="goToVocherPage"> Xem ưu đãi </v-btn>
                 </v-toolbar>
               </v-col>
-              <v-col cols="12" sm="12">
+              <v-col cols="12" sm="12" >
                 <v-card class="tb" flat>
-                  <v-tabs v-model="tab" color="grey" align-tabs="end">
-                    <v-tab :value="1">Tráng miệng</v-tab>
-                    <v-tab :value="2">Thức uống</v-tab>
-                    <v-tab :value="3">Kem tươi</v-tab>
+                  <v-tabs v-model="tab" color="black" align-tabs="end" >
+                    <v-tab :value="1">Bán chạy nhất</v-tab>
                   </v-tabs>
                   <v-window v-model="tab" class="co">
                     <v-window-item v-for="n in 3" :key="n" :value="n">
@@ -112,11 +109,13 @@
                             cols="12"
                             md="3"
                           >
+                          <!-- hover -->
                             <v-hover
                               v-slot="{ isHovering, props }"
                               open-delay="200"
                             >
-                              <v-card class="" color="#111111" v-bind="props">
+                            <!-- nền sp bán chạy -->
+                              <v-card class="" color="#F7F2E5" v-bind="props">
                                 <v-img
                                   height="90"
                                   :src="dishe.image"
@@ -127,36 +126,35 @@
                                     <span class=" ">{{ dishe.name }}</span>
                                   </v-card-subtitle>
                                   <v-card-title
-                                    class="text-caption text-orange"
-                                    >{{ dishe.money }}</v-card-title
+                                    class="text-caption text-red"
+                                    >{{ formatMoney(dishe.money) }}</v-card-title
                                   >
                                 </v-card-item>
                                 <v-expand-transition>
                                   <div
                                     v-if="isHovering"
-                                    class="d-flex transition-fast-in-fast-out bg-grey-darken-3 v-card--reveal text-h2"
+                                    class="d-flex transition-fast-in-fast-out bg-grey-darken-4 v-card--reveal text-h3"
                                     style="height: 100%"
                                   >
-                                    <v-btn
-                                      density="compact"
-                                      icon="mdi mdi-magnify"
-                                      class="mr-2"
-                                    ></v-btn>
+                                  <!-- nút trên hover -->
+                                    
                                     <v-btn
                                       density="compact"
                                       icon="mdi mdi-heart-outline"
-                                      class="mr-2"
+                                      class="mr-4"
+                                      @click="addToFavorites(dishe)"
                                     ></v-btn>
                                     <v-btn
                                       density="compact"
-                                      icon="mdi mdi-sync"
+                                      icon="mdi-shopping"
+                                      @click="addToCart(dishe)"
                                     ></v-btn>
                                   </div>
                                 </v-expand-transition>
                               </v-card>
                             </v-hover>
                           </v-col>
-                          <v-toolbar color="transparent">
+                          <!-- <v-toolbar color="transparent">
                             <v-toolbar-title class="text-white"
                               >Danh sách</v-toolbar-title
                             >
@@ -227,7 +225,7 @@
                                 </v-slide-group-item>
                               </v-slide-group>
                             </v-sheet>
-                          </v-col>
+                          </v-col> -->
                         </v-row>
                       </v-container>
                     </v-window-item>
@@ -238,6 +236,7 @@
           </v-col>
           <v-col cols="12" sm="2">
             <v-row>
+              <!-- thanh ưu đãi phục vụ 24/7 -->
               <v-col cols="12" sm="12">
                 <v-card class="co">
                   <v-list lines="two" class="cat pro">
@@ -250,12 +249,14 @@
                       <v-list-item-subtitle
                         v-text="offer.subtitle"
                         class="text-caption"
+                        style="font-weight: bold;"
                       ></v-list-item-subtitle>
                       <template v-slot:prepend>
+                       <!-- màu icon -->
                         <v-icon
                           :icon="offer.icon"
                           large
-                          color="orange"
+                          color="red"
                         ></v-icon>
                       </template>
                     </v-list-item>
@@ -265,19 +266,16 @@
               <v-col cols="12" sm="12">
                 <v-card class="co pa-2">
                   <div class="float-sm-left">
-                    <span class="ml-4 text-white">Member VIP</span>
-                    <v-icon
-                      icon="mdi mdi-chevron-right-circle"
-                      class="ml-10"
-                    ></v-icon>
-                    <v-icon icon="mdi mdi-chevron-left-circle"></v-icon>
+                    <span class="ml-4 text-black" style="font-weight: bold;">Member VIP</span>
+                    <v-icon icon="mdi mdi-chevron-left-circle" class="ml-14"></v-icon>
                   </div>
+                  <v-icon icon="mdi mdi-chevron-right-circle"></v-icon>
                   <div class="text-center">
                     <v-avatar variant="outlined" color="white" class="mt-2">
                       <v-img src="/20.jpg" alt="John"></v-img>
                     </v-avatar>
-                    <h5 class="text-grey mt-3">Sơn Tùng MTP</h5>
-                    <p class="text-grey mt-2 text-caption">
+                    <h5 class="text-black mt-3">Sơn Tùng MTP</h5>
+                    <p class="text-black mt-2 text-caption">
                       "Tôi cảm thấy cửa hàng này là một trong những cửa hàng bán đồ ăn nhẹ ngon nhất mà tôi từng ăn"
                     </p>
                   </div>
@@ -285,19 +283,20 @@
               </v-col>
               <v-col cols="12" sm="12">
                 <v-card class="co pa-2">
+                  <!-- mục mới nhất  -->
                   <div class="float-sm-left mb-4">
-                    <span class="ml-4 text-white">Mới nhất </span>
+                    <span class="ml-4 text-black" style="font-weight: bold;">Mới nhất </span>
                     <v-icon
-                      icon="mdi mdi-chevron-right-circle"
-                      class="ml-6"
+                      icon="mdi mdi-chevron-left-circle"
+                      class="ml-16"
                     ></v-icon>
-                    <v-icon icon="mdi mdi-chevron-left-circle"></v-icon>
+                    <v-icon icon="mdi mdi-chevron-right-circle"></v-icon>
                   </div>
-                  <div class="text-center">
-                    <v-img src="/40.jpg" alt="pi" width="200"></v-img>
+                  <div class="text-center"> <!-- Đã thêm lớp text-center -->
+                    <v-img src="/public/kemsocola.png" alt="pi" width="200" style="margin-left: 25px"></v-img>
                   </div>
-                  <h5 class="text-grey mt-3">Trà sữa hành lá</h5>
-                  <p class="text-grey mt-2 text-caption">20-04-2024</p>
+                  <h5 class="text-center text-balck mt-3">Kem Chocolate</h5> <!-- Đã thêm lớp text-center -->
+                  <p class="text-center text-red mt-2 text-caption">20-04-2024</p> <!-- Đã thêm lớp text-center -->
                 </v-card>
               </v-col>
             </v-row>
@@ -365,22 +364,22 @@ export default {
       {
         title: "Ưu đãi",
         subtitle: "Mua 1 tặng 1",
-        icon: "mdi mdi-anchor",
+        icon: "mdi mdi-gift",
       },
       {
         title: "Phục vụ 24/7",
         subtitle: "6:00 đến 22:00",
-        icon: "mdi mdi-coffee",
+        icon: "mdi-clock",
       },
       {
         title: "Nhiều ưu đãi khác",
         subtitle: "Mua ngay",
-        icon: "mdi mdi-basket",
+        icon: "mdi mdi-ticket",
       },
       {
         title: "Miễn phí ship",
         subtitle: "Đối với đơn từ 150.000đ trở lên",
-        icon: "mdi mdi-airplane",
+        icon: "mdi-truck-delivery",
       },
     ],
     pictures: [
@@ -398,48 +397,111 @@ export default {
       },
     ],
     dishes: [
-      { image: "f1.png", name: "Kem ốc quế", money: "20.000đ" },
-      { image: "f2.png", name: "sữa chua", money: "15.000đ" },
-      { image: "f3.png", name: "Sinh tố Dừa", money: "20.000đ" },
-      { image: "f4.png", name: "Sinh tố chuối", money: "20.000đ" },
-      { image: "f5.png", name: "Cà phê sữa", money: "18.000đ" },
-      { image: "f6.png", name: "Cà phê đen", money: "15.000đ" },
-      { image: "f7.avif", name: "Trà sữa Chocolate", money: "20.000đ" },
-      { image: "44.png", name: "Chanh tuyết", money: "23.000đ" },
+      { id : 7, image: "f1.png", name: "Kem ốc quế", money: "20.000đ" },
+      { id: 4, image: "cfchon.png", name: "Cà phê chồn", money: "200.000đ" },
+      { id: 1, image: "capuchino.png", name: "Cappuccino", money: "40.000đ" },
+      { id : 14, image: "kembingsu.png", name: "Kem Bing su Hàn Quốc", money: "30.000đ" },
+      { id : 30, image: "STot.png", name: "Sinh tố ớt", money: "49.000đ" },
+      { id: 3, image: "cfmuoi.png", name: "Cà phê muối", money: "20.000đ" },
+      { id : 35, image: "7.png", name: "Trà sữa thái xanh", money: "28.000đ" },
+      { id : 44, image: "tramangcut.png", name: "Trà măng cụt", money: "25.000đ" },
     ],
   }),
   methods:{
     goToVocherPage() {
       this.$router.push('/vocher');
     },
+
+
+    addToCart(product) {
+  console.log("Sản phẩm đã chọn:", product);
+
+  let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+  // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
+  let existingProduct = cartItems.find(item => item.id === product.id);
+
+  if (!existingProduct) {
+    // Nếu sản phẩm chưa tồn tại trong giỏ hàng, thêm vào với số lượng là 1
+    product.quantity = 1;
+    product.money = parseFloat(product.money.replace('đ', ''));
+    cartItems.push(product);
+  } else {
+    // Nếu sản phẩm đã tồn tại trong giỏ hàng, tăng số lượng lên 1
+    existingProduct.quantity++;
+  }
+
+  localStorage.setItem('cartItems', JSON.stringify(cartItems));
+},
+
+
+    formatMoney(amount) {
+      if (typeof amount !== 'string') {
+        amount = amount.toString();
+      }
+      if (amount.includes('đ')) {
+        amount = amount.replace('đ', '');
+      }
+      const formattedAmount = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+        minimumFractionDigits: 3
+      }).format(amount);
+      return formattedAmount;
+    },
+
+    addToFavorites(product) {
+  console.log("Sản phẩm đã chọn:", product);
+
+  let favoriteItems = JSON.parse(localStorage.getItem('favoriteItems')) || [];
+
+  let existingProduct = favoriteItems.find(item => item.id === product.id);
+
+  if (!existingProduct) {
+    product.quantity = 1;
+    product.money = parseFloat(product.money.replace('đ', ''));
+    product.id = favoriteItems.length + 1;
+    favoriteItems.push(product);
+  } else {
+    existingProduct.quantity++;
+  }
+
+  localStorage.setItem('favoriteItems', JSON.stringify(favoriteItems));
+}
   }
 };
 
 </script>
 <style scoped>
 .co {
-  background-color: #1f1f1f;
+  /* màu nền chính */
+  background-color: #F7F2E5; 
 }
 .tb {
-  background-color: #2f2f2f;
+  /* thanh bán chạy nhất  */
+  background-color: #FAD06C; 
 }
 
 .cat {
-  background-color: #1f1f1f;
-  color: white;
+  /* phổ biến và khách hàng */
+  background-color: #F7F2E5;
+  /* màu chữ */
+  color: black;
 }
-.tag:hover {
+/* .tag:hover {
   color: orange;
-}
+} */
 .btn {
-  background-color: #111111;
+  /* btn xem ưu đãi */
+  background-color: #B7AC9A;
 }
 .v-card--reveal {
   align-items: center;
   bottom: 0;
   justify-content: center;
-  opacity: 0.9;
+  opacity: 0.5;
   position: absolute;
   width: 100%;
+  transform: scale(1.2);  
 }
 </style>
